@@ -1,8 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using ProyectoVotoSeguro.Services;
 
 namespace ProyectoVotoSeguro.Controllers
 {
+
     [ApiController]
     [Route("api/[controller]")]
     public class TestController : ControllerBase
