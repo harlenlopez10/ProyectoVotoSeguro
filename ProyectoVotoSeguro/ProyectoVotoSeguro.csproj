@@ -20,7 +20,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Content Update="Config\firebase-credentials.json">
+      <Content Update="firebase-credentials.json">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </Content>
     </ItemGroup>

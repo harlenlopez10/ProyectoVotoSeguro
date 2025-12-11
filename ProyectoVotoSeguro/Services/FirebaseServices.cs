@@ -1,34 +1,38 @@
-using FirebaseAdmin;
-using FirebaseAdmin.Auth;
-using Google.Apis.Auth.OAuth2;
 using Google.Cloud.Firestore;
+using Google.Apis.Auth.OAuth2;
 
 namespace ProyectoVotoSeguro.Services;
 
 public class FirebaseServices
 {
     private readonly FirestoreDb _firestoreDb;
-    private readonly string _projectId;
 
     public FirebaseServices(IConfiguration configuration)
     {
-        _projectId = configuration["Firebase:ProjectId"]
-            ?? throw new InvalidOperationException("Firebase ProjectID no configurado");
-        
-        //Inicializar Firebase App si no esta inicializado
-        if (FirebaseApp.DefaultInstance == null)
+        var projectId = configuration["Firebase:ProjectId"];
+
+        if (string.IsNullOrEmpty(projectId))
         {
-            var credential = GoogleCredential.GetApplicationDefault();
-            FirebaseApp.Create(new AppOptions
-            {
-                Credential = credential,
-                ProjectId = _projectId
-            });
-            
+            throw new ArgumentNullException("Firebase:ProjectId", "Firebase Project ID is not configured in appsettings.json");
         }
         
-        //Crear instancia de Firebase
-        _firestoreDb = FirestoreDb.Create(_projectId);    
+        // Path to the firebase credentials file in the output directory
+        string credentialPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "firebase-credentials.json");
+
+        if (File.Exists(credentialPath))
+        {
+             var builder = new FirestoreDbBuilder
+             {
+                 ProjectId = projectId,
+                 JsonCredentials = File.ReadAllText(credentialPath)
+             };
+             _firestoreDb = builder.Build();
+        }
+        else
+        {
+             // Fallback to environment variables if file not found (though requirements say file provided)
+             _firestoreDb = FirestoreDb.Create(projectId);
+        }
     }
         
     public FirestoreDb GetFirestoreDb()
