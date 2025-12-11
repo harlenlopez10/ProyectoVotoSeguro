@@ -1,13 +1,14 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace ProyectoVotoSeguro.DTOs;
-
-public class LoginDto
+namespace ProyectoVotoSeguro.DTOs
 {
-    [Required(ErrorMessage ="El email es requerido")]
-    [EmailAddress(ErrorMessage ="El email es invalido")]
-    public string Email { get; set; }
+    public class LoginDto
+    {
+        [Required]
+        [EmailAddress]
+        public string Correo { get; set; } = string.Empty;
 
-    [Required(ErrorMessage = "El password es requerido")]
-    public string Password { get; set; } = string.Empty;
+        [Required]
+        public string Contrasena { get; set; } = string.Empty;
+    }
 }

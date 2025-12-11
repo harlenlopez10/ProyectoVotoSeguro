@@ -5,11 +5,10 @@ namespace ProyectoVotoSeguro.Services
 {
     public interface IAuthService
     {
-        Task<AuthResponseDto> Register(RegisterDto registerdto);
-        Task<AuthResponseDto> Login(LoginDto logindto);
-        Task<User?> GetUserById(string userId);
-        Task<User?> GetUserByEmail(string email);
-        string GenerateJwtToken(User user);
+        Task<AuthResponseDto> Register(RegisterDto registerDto);
+        Task<AuthResponseDto> Login(LoginDto loginDto);
+        Task<Usuario?> GetUserById(string userId);
+        Task<Usuario?> GetUserByEmail(string correo);
+        string GenerateJwtToken(Usuario usuario);
     }
 }
-

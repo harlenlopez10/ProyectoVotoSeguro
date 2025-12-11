@@ -1,12 +1,13 @@
+
 namespace ProyectoVotoSeguro.DTOs
 {
     public class AuthResponseDto
     {
-        public string Token { get; set; } = String.Empty;
-        public string UserId { get; set; } = String.Empty;
-        public string Email { get; set; } = String.Empty;
-        public string FullName { get; set; } = String.Empty;
-        public string Role { get; set; } = String.Empty;
+        public string Token { get; set; } = string.Empty;
+        public string UsuarioId { get; set; } = string.Empty;
+        public string Correo { get; set; } = string.Empty;
+        public string Nombre { get; set; } = string.Empty;
+        public string Apellido { get; set; } = string.Empty;
+        public string Rol { get; set; } = string.Empty;
     }
 }
-
