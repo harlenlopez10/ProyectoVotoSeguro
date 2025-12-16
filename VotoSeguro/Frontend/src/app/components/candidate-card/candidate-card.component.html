@@ -1,0 +1,9 @@
+<div class="card">
+  <div class="card-image" [style.backgroundImage]="'url(' + candidate.imageUrl + ')'"></div>
+  <div class="card-content">
+    <h3 class="candidate-name">{{ candidate.name }}</h3>
+    <p class="candidate-party">{{ candidate.party }}</p>
+    <p class="candidate-description">{{ candidate.description }}</p>
+    <button class="vote-btn" (click)="onVote()">Votar</button>
+  </div>
+</div>

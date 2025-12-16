@@ -1,0 +1,22 @@
+<div class="dashboard-container">
+    <header class="header">
+        <div class="logo">VotoSeguro</div>
+        <div class="user-info">Bienvenido, Votante</div>
+    </header>
+
+    <main class="main-content">
+        <div class="intro">
+            <h1>Elecciones Generales 2025</h1>
+            <p>Elige al candidato que mejor represente tus ideales. Tu voto es seguro y secreto.</p>
+        </div>
+
+        <div class="candidates-grid">
+            <app-candidate-card *ngFor="let candidate of candidates" [candidate]="candidate"
+                (vote)="handleVote($event)"></app-candidate-card>
+        </div>
+
+        <div *ngIf="hasVoted" class="voted-message">
+            <p>¡Gracias por tu participación! Tu voto ha sido registrado.</p>
+        </div>
+    </main>
+</div>
