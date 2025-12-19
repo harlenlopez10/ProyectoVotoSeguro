@@ -46,7 +46,7 @@ public class AuthService : IAuthService
             Email = registerDto.Email,
             PasswordHash = BCrypt.Net.BCrypt.HashPassword(registerDto.Password),
             FullName = registerDto.FullName,
-            Role = "votante", // Por defecto es votante
+            Role = "voter", // Por defecto es voter
             HasVoted = false,
             CreatedAt = DateTime.UtcNow
         };
@@ -82,6 +82,10 @@ public class AuthService : IAuthService
 
         var userDoc = snapshot.Documents[0];
         var user = userDoc.ConvertTo<User>();
+
+        // Normalizar roles para compatibilidad
+        if (user.Role == "administrador") user.Role = "admin";
+        if (user.Role == "votante") user.Role = "voter";
 
         // Verificar contraseña
         if (!BCrypt.Net.BCrypt.Verify(loginDto.Password, user.PasswordHash))
@@ -129,9 +133,11 @@ public class AuthService : IAuthService
         var claims = new[]
         {
             new Claim(JwtRegisteredClaimNames.Sub, user.Id),
+            new Claim(ClaimTypes.NameIdentifier, user.Id),
             new Claim(JwtRegisteredClaimNames.Email, user.Email),
             new Claim(ClaimTypes.Name, user.FullName),
             new Claim(ClaimTypes.Role, user.Role),
+            new Claim("role", user.Role), // Duplicate for easier frontend decoding
             new Claim("hasVoted", user.HasVoted.ToString()),
             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
         };

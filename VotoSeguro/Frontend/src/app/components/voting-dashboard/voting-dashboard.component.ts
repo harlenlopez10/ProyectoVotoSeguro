@@ -48,7 +48,7 @@ export class VotingDashboardComponent implements OnInit {
         });
     }
 
-    handleVote(candidateId: number) {
+    handleVote(candidateId: string) {
         if (this.hasVoted) return;
 
         if (confirm('¿Estás seguro de tu voto? No podrás cambiarlo.')) {

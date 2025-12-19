@@ -14,6 +14,9 @@ public class Candidate
     [FirestoreProperty("party")]
     public string Party { get; set; } = string.Empty;
 
+    [FirestoreProperty("description")]
+    public string Description { get; set; } = string.Empty;
+
     [FirestoreProperty("photoUrl")]
     public string PhotoUrl { get; set; } = string.Empty;
 

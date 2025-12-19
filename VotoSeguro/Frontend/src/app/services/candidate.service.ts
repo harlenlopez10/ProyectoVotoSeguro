@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
+import { map } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Candidate } from '../models/candidate.model';
+import { environment } from '../../environments/environment';
 
 @Injectable({
     providedIn: 'root'
 })
 export class CandidateService {
-    private apiUrl = 'http://localhost:5000/api/candidates';
+    private apiUrl = `${environment.apiUrl}/candidates`;
 
     constructor(private http: HttpClient) { }
 
@@ -17,14 +19,24 @@ export class CandidateService {
     }
 
     getCandidates(): Observable<Candidate[]> {
-        return this.http.get<Candidate[]>(this.apiUrl, { headers: this.getHeaders() });
+        // Public endpoint, map backend fields to frontend model
+        return this.http.get<any[]>(this.apiUrl).pipe(
+            map(candidates => candidates.map(c => ({
+                id: c.id,
+                name: c.name,
+                party: c.party,
+                description: c.description || '',
+                imageUrl: c.photoUrl || c.logoUrl || '',
+                votes: c.votes ?? c.voteCount ?? 0
+            } as Candidate)))
+        );
     }
 
-    createCandidate(candidate: FormData): Observable<any> {
+    createCandidate(candidate: any): Observable<any> {
         return this.http.post(this.apiUrl, candidate, { headers: this.getHeaders() });
     }
 
-    updateCandidate(id: number, candidate: FormData): Observable<any> {
+    updateCandidate(id: string, candidate: any): Observable<any> {
         return this.http.put(`${this.apiUrl}/${id}`, candidate, { headers: this.getHeaders() });
     }
 

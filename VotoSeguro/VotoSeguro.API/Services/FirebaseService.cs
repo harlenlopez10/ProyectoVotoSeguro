@@ -46,10 +46,20 @@ public class FirebaseService
                 Credential = credential,
                 ProjectId = _projectId
             });
-        }
 
-        // 4. Crear instancia de Firestore
-        _firestoreDb = FirestoreDb.Create(_projectId);
+            // 4. Crear instancia de Firestore usando la misma credencial
+            _firestoreDb = new FirestoreDbBuilder
+            {
+                ProjectId = _projectId,
+                Credential = credential
+            }.Build();
+        }
+        else
+        {
+            // Si ya existe la App, intentamos obtener Firestore de forma estándar
+            // o podrías guardarlo si lo prefieres.
+            _firestoreDb = FirestoreDb.Create(_projectId);
+        }
     }
 
     public FirestoreDb GetFirestoreDb() => _firestoreDb;

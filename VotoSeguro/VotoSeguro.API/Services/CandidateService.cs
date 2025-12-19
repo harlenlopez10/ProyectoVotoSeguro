@@ -54,15 +54,21 @@ public class CandidateService : ICandidateService
     {
         var candidateId = Guid.NewGuid().ToString();
 
-        // Subir imágenes a Firebase Storage
-        var photoUrl = await UploadImageToStorage(createDto.PhotoBase64, $"candidates/photos/{candidateId}.jpg");
-        var logoUrl = await UploadImageToStorage(createDto.LogoBase64, $"candidates/logos/{candidateId}.jpg");
+        // Subir imágenes a Firebase Storage o usar URL directa
+        var photoUrl = !string.IsNullOrEmpty(createDto.PhotoBase64)
+            ? await UploadImageToStorage(createDto.PhotoBase64, $"candidates/photos/{candidateId}.jpg")
+            : createDto.ImageUrl ?? "";
+
+        var logoUrl = !string.IsNullOrEmpty(createDto.LogoBase64)
+            ? await UploadImageToStorage(createDto.LogoBase64, $"candidates/logos/{candidateId}.jpg")
+            : "";
 
         var candidate = new Candidate
         {
             Id = candidateId,
             Name = createDto.Name,
             Party = createDto.Party,
+            Description = createDto.Description,
             PhotoUrl = photoUrl,
             LogoUrl = logoUrl,
             Proposals = createDto.Proposals,
@@ -89,6 +95,7 @@ public class CandidateService : ICandidateService
         // Actualizar campos
         candidate.Name = updateDto.Name;
         candidate.Party = updateDto.Party;
+        candidate.Description = updateDto.Description;
         candidate.Proposals = updateDto.Proposals;
 
         // Si se proporcionan nuevas imágenes, actualizarlas
@@ -100,6 +107,11 @@ public class CandidateService : ICandidateService
         if (!string.IsNullOrEmpty(updateDto.LogoBase64))
         {
             candidate.LogoUrl = await UploadImageToStorage(updateDto.LogoBase64, $"candidates/logos/{candidateId}.jpg");
+        }
+        else if (!string.IsNullOrEmpty(updateDto.ImageUrl) && string.IsNullOrEmpty(candidate.PhotoUrl))
+        {
+            // Fallback simplistic
+            candidate.PhotoUrl = updateDto.ImageUrl;
         }
 
         await _firebaseService.CandidatesCollection.Document(candidateId).SetAsync(candidate);
@@ -185,6 +197,7 @@ public class CandidateService : ICandidateService
             Id = candidate.Id,
             Name = candidate.Name,
             Party = candidate.Party,
+            Description = candidate.Description,
             PhotoUrl = candidate.PhotoUrl,
             LogoUrl = candidate.LogoUrl,
             Proposals = candidate.Proposals,

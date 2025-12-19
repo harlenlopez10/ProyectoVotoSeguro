@@ -31,7 +31,7 @@ public class ReportService : IReportService
         var votesSnapshot = await _firebaseService.VotesCollection.OrderBy("timestamp").GetSnapshotAsync();
         var votes = votesSnapshot.Documents.Select(d => d.ConvertTo<Vote>()).ToList();
 
-        var totalVoters = users.Count(u => u.Role == "votante");
+        var totalVoters = users.Count(u => u.Role == "voter");
         var totalVotes = users.Count(u => u.HasVoted);
         var participationPercentage = totalVoters > 0 ? (double)totalVotes / totalVoters * 100 : 0;
 

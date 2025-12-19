@@ -16,7 +16,7 @@ public class ReportsController : ControllerBase
     }
 
     [HttpGet("statistics")]
-    [Authorize(Roles = "administrador")]
+    [Authorize(Roles = "admin")]
     public async Task<IActionResult> GetStatistics()
     {
         try

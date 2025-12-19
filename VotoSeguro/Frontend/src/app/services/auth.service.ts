@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { Router } from '@angular/router';
 import { jwtDecode } from 'jwt-decode';
+import { environment } from '../../environments/environment';
 
 export interface User {
     id: string;
@@ -15,12 +16,17 @@ export interface User {
     providedIn: 'root'
 })
 export class AuthService {
-    private apiUrl = 'http://localhost:5000/api/auth'; // Adjust port if needed
+    private apiUrl = `${environment.apiUrl}/auth`;
     private currentUserSubject = new BehaviorSubject<User | null>(null);
     public currentUser$ = this.currentUserSubject.asObservable();
 
     constructor(private http: HttpClient, private router: Router) {
         this.loadUserFromToken();
+    }
+
+    // Expose current user for other services/guards
+    getCurrentUser() {
+        return this.currentUserSubject.value;
     }
 
     private loadUserFromToken() {

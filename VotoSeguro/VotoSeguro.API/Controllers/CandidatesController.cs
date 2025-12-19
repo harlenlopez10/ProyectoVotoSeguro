@@ -52,7 +52,7 @@ public class CandidatesController : ControllerBase
     }
 
     [HttpPost]
-    [Authorize(Roles = "administrador")]
+    [Authorize(Roles = "admin")]
     public async Task<IActionResult> Create([FromBody] CreateCandidateDto createDto)
     {
         try
@@ -73,7 +73,7 @@ public class CandidatesController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    [Authorize(Roles = "administrador")]
+    [Authorize(Roles = "admin")]
     public async Task<IActionResult> Update(string id, [FromBody] UpdateCandidateDto updateDto)
     {
         try
@@ -92,7 +92,7 @@ public class CandidatesController : ControllerBase
     }
 
     [HttpDelete("{id}")]
-    [Authorize(Roles = "administrador")]
+    [Authorize(Roles = "admin")]
     public async Task<IActionResult> Delete(string id)
     {
         try

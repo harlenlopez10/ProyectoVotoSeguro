@@ -6,7 +6,7 @@ namespace VotoSeguro.API.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-[Authorize(Roles = "administrador")]
+[Authorize(Roles = "admin")]
 public class UsersController : ControllerBase
 {
     private readonly IUserService _userService;

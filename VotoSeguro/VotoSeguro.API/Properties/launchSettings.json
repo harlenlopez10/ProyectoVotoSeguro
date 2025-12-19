@@ -17,7 +17,7 @@
       "applicationUrl": "http://localhost:5001",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "GOOGLE_APPLICATION_CREDENTIALS": "C:\\Users\\danic\\Documents\\GitHub\\Programacion-Web-Q4\\VotoSeguro\\VotoSeguro.API\\Config\\firebase-credentials.json"
+        "GOOGLE_APPLICATION_CREDENTIALS": "C:\\Users\\danic\\Documents\\GitHub\\ProyectoVotoSeguro\\VotoSeguro\\VotoSeguro.API\\Config\\firebase-credentials.json"
       }
     },
     "https": {
@@ -28,7 +28,7 @@
       "applicationUrl": "https://localhost:7001;http://localhost:5001",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "GOOGLE_APPLICATION_CREDENTIALS": "C:\\Users\\danic\\Documents\\GitHub\\Programacion-Web-Q4\\VotoSeguro\\VotoSeguro.API\\Config\\firebase-credentials.json"
+        "GOOGLE_APPLICATION_CREDENTIALS": "C:\\Users\\danic\\Documents\\GitHub\\ProyectoVotoSeguro\\VotoSeguro\\VotoSeguro.API\\Config\\firebase-credentials.json"
       }
     },
     "IIS Express": {
@@ -37,7 +37,7 @@
       "launchUrl": "swagger",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "GOOGLE_APPLICATION_CREDENTIALS": "C:\\Users\\danic\\Documents\\GitHub\\Programacion-Web-Q4\\VotoSeguro\\VotoSeguro.API\\Config\\firebase-credentials.json"
+        "GOOGLE_APPLICATION_CREDENTIALS": "C:\\Users\\danic\\Documents\\GitHub\\ProyectoVotoSeguro\\VotoSeguro\\VotoSeguro.API\\Config\\firebase-credentials.json"
       }
     }
   }

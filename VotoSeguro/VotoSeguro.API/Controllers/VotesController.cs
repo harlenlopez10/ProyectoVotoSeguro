@@ -8,7 +8,7 @@ namespace VotoSeguro.API.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-[Authorize(Roles = "votante")]
+[Authorize(Roles = "voter")]
 public class VotesController : ControllerBase
 {
     private readonly IVoteService _voteService;
