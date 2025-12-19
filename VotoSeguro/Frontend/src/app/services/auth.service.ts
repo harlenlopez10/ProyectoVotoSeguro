@@ -10,6 +10,8 @@ export interface User {
     email: string;
     role: 'admin' | 'voter';
     hasVoted?: boolean;
+    votedForName?: string;
+    voteTimestamp?: string;
 }
 
 @Injectable({
@@ -39,7 +41,9 @@ export class AuthService {
                     id: decoded.sub || decoded.uid,
                     email: decoded.email,
                     role: decoded.role || 'voter',
-                    hasVoted: decoded.hasVoted === 'True' || decoded.hasVoted === true
+                    hasVoted: decoded.hasVoted === 'True' || decoded.hasVoted === true,
+                    votedForName: decoded.votedForName,
+                    voteTimestamp: decoded.voteTimestamp
                 };
                 this.currentUserSubject.next(user);
             } catch (e) {

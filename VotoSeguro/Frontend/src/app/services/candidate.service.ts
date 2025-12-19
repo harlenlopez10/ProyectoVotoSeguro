@@ -40,7 +40,7 @@ export class CandidateService {
         return this.http.put(`${this.apiUrl}/${id}`, candidate, { headers: this.getHeaders() });
     }
 
-    deleteCandidate(id: number): Observable<any> {
+    deleteCandidate(id: string): Observable<any> {
         return this.http.delete(`${this.apiUrl}/${id}`, { headers: this.getHeaders() });
     }
 }

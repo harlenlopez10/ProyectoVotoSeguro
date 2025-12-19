@@ -9,6 +9,7 @@ import { AuthGuard } from './guards/auth.guard';
 import { AdminDashboardComponent } from './components/admin/admin-dashboard/admin-dashboard.component';
 import { CandidateManagementComponent } from './components/admin/candidate-management/candidate-management.component';
 import { CandidateFormComponent } from './components/admin/candidate-form/candidate-form.component';
+import { VoterAuditComponent } from './components/admin/voter-audit/voter-audit.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -17,6 +18,8 @@ const routes: Routes = [
   { path: 'admin', component: AdminDashboardComponent, canActivate: [AuthGuard] },
   { path: 'admin/candidates', component: CandidateManagementComponent, canActivate: [AuthGuard] },
   { path: 'admin/candidates/new', component: CandidateFormComponent, canActivate: [AuthGuard] },
+  { path: 'admin/candidates/edit/:id', component: CandidateFormComponent, canActivate: [AuthGuard] },
+  { path: 'admin/voters', component: VoterAuditComponent, canActivate: [AuthGuard] },
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: '**', redirectTo: '/login' }
 ];

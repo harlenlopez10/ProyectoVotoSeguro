@@ -12,6 +12,8 @@ import { AuthService } from '../../services/auth.service';
 export class VotingDashboardComponent implements OnInit {
     candidates: Candidate[] = [];
     hasVoted = false;
+    votedForName = '';
+    voteTimestamp = '';
     user: any;
 
     constructor(
@@ -23,9 +25,9 @@ export class VotingDashboardComponent implements OnInit {
     ngOnInit() {
         this.authService.currentUser$.subscribe(user => {
             this.user = user;
-            if (user?.hasVoted) {
-                this.hasVoted = true;
-            }
+            this.hasVoted = !!user?.hasVoted;
+            this.votedForName = user?.votedForName || '';
+            this.voteTimestamp = user?.voteTimestamp || '';
         });
 
         this.checkVoteStatus(); // Double check with server
@@ -35,8 +37,12 @@ export class VotingDashboardComponent implements OnInit {
     checkVoteStatus() {
         // If we want to be sure
         this.voteService.getMyVote().subscribe({
-            next: (vote) => {
-                if (vote) this.hasVoted = true;
+            next: (status) => {
+                if (status) {
+                    this.hasVoted = status.hasVoted;
+                    this.votedForName = status.votedForName;
+                    this.voteTimestamp = status.voteTimestamp;
+                }
             },
             error: () => { }
         });
@@ -60,5 +66,9 @@ export class VotingDashboardComponent implements OnInit {
                 error: (err) => alert('Error al votar')
             });
         }
+    }
+
+    logout() {
+        this.authService.logout();
     }
 }

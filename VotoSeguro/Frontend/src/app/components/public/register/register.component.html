@@ -6,9 +6,9 @@
         <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
             <div class="form-group">
                 <label for="nombre">Nombre Completo</label>
-                <input type="text" id="nombre" formControlName="nombre" placeholder="Tu nombre">
+                <input type="text" id="nombre" formControlName="fullName" placeholder="Tu nombre">
                 <div class="error-msg"
-                    *ngIf="registerForm.get('nombre')?.touched && registerForm.get('nombre')?.invalid">
+                    *ngIf="registerForm.get('fullName')?.touched && registerForm.get('fullName')?.invalid">
                     El nombre es requerido
                 </div>
             </div>

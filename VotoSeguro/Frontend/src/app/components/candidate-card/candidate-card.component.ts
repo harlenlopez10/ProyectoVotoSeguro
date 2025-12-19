@@ -8,7 +8,7 @@ import { Candidate } from '../../models/candidate.model';
 })
 export class CandidateCardComponent {
     @Input() candidate!: Candidate;
-    @Output() vote = new EventEmitter<number>();
+    @Output() vote = new EventEmitter<string>();
 
     onVote() {
         this.vote.emit(this.candidate.id);

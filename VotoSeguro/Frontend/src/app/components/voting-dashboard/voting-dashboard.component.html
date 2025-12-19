@@ -1,22 +1,48 @@
 <div class="dashboard-container">
     <header class="header">
         <div class="logo">VotoSeguro</div>
-        <div class="user-info">Bienvenido, Votante</div>
+        <div class="header-right">
+            <span class="user-info">Bienvenido/a, <strong>{{ user?.fullName || 'Votante' }}</strong></span>
+            <button class="logout-link" (click)="logout()">Cerrar Sesión</button>
+        </div>
     </header>
 
     <main class="main-content">
-        <div class="intro">
-            <h1>Elecciones Generales 2025</h1>
-            <p>Elige al candidato que mejor represente tus ideales. Tu voto es seguro y secreto.</p>
+        <!-- Pantalla de Bienvenida y Votación -->
+        <div *ngIf="!hasVoted">
+            <div class="intro">
+                <h1>Elecciones Generales 2025</h1>
+                <p>Elige al candidato que mejor represente tus ideales. Tu voto es seguro y secreto.</p>
+            </div>
+
+            <div class="candidates-grid">
+                <app-candidate-card *ngFor="let candidate of candidates" [candidate]="candidate"
+                    (vote)="handleVote($event)"></app-candidate-card>
+            </div>
         </div>
 
-        <div class="candidates-grid">
-            <app-candidate-card *ngFor="let candidate of candidates" [candidate]="candidate"
-                (vote)="handleVote($event)"></app-candidate-card>
-        </div>
+        <!-- Pantalla de Confirmación -->
+        <div *ngIf="hasVoted" class="confirmation-container">
+            <div class="success-card">
+                <div class="success-icon">✓</div>
+                <h2>¡Voto registrado con éxito!</h2>
+                <p>Tu participación ha sido procesada correctamente.</p>
 
-        <div *ngIf="hasVoted" class="voted-message">
-            <p>¡Gracias por tu participación! Tu voto ha sido registrado.</p>
+                <div class="vote-summary" *ngIf="votedForName">
+                    <div class="summary-item">
+                        <span class="label">Candidato:</span>
+                        <span class="value-highlight">{{ votedForName }}</span>
+                    </div>
+                    <div class="summary-item" *ngIf="voteTimestamp">
+                        <span class="label">Fecha y Hora:</span>
+                        <span class="value">{{ voteTimestamp | date:'medium' }}</span>
+                    </div>
+                </div>
+
+                <div class="audit-info">
+                    <p>Gracias por cumplir con tu deber ciudadano.</p>
+                </div>
+            </div>
         </div>
     </main>
 </div>

@@ -139,6 +139,8 @@ public class AuthService : IAuthService
             new Claim(ClaimTypes.Role, user.Role),
             new Claim("role", user.Role), // Duplicate for easier frontend decoding
             new Claim("hasVoted", user.HasVoted.ToString()),
+            new Claim("votedForName", user.VotedForName ?? ""),
+            new Claim("voteTimestamp", user.VoteTimestamp?.ToString("o") ?? ""),
             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
         };
 

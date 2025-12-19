@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { NgChartsModule } from 'ng2-charts';
 import { Chart, registerables } from 'chart.js';
 
@@ -14,6 +14,7 @@ import { RegisterComponent } from './components/public/register/register.compone
 import { AdminDashboardComponent } from './components/admin/admin-dashboard/admin-dashboard.component';
 import { CandidateManagementComponent } from './components/admin/candidate-management/candidate-management.component';
 import { CandidateFormComponent } from './components/admin/candidate-form/candidate-form.component';
+import { VoterAuditComponent } from './components/admin/voter-audit/voter-audit.component';
 
 Chart.register(...registerables);
 
@@ -26,13 +27,15 @@ Chart.register(...registerables);
     RegisterComponent,
     AdminDashboardComponent,
     CandidateManagementComponent,
-    CandidateFormComponent
+    CandidateFormComponent,
+    VoterAuditComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
+    FormsModule,
     NgChartsModule
   ],
   providers: [],
